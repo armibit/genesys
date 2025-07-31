@@ -2,28 +2,22 @@
 import os
 from dotenv import load_dotenv
 
-# Carica le variabili d'ambiente dal file .env
 load_dotenv()
 
-# --- Percorsi ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 REPOS_DIR = os.path.join(DATA_DIR, "repos")
 CHROMA_DB_DIR = os.path.join(DATA_DIR, "db")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 
-# Assicurati che le directory esistano
 os.makedirs(REPOS_DIR, exist_ok=True)
 os.makedirs(CHROMA_DB_DIR, exist_ok=True)
 os.makedirs(MODELS_DIR, exist_ok=True)
 
 # --- Configurazione del Repository di Test ---
 # Puoi cambiare questo URL con un tuo repository pubblico di test
-# Per un test iniziale, consiglio un repo con codice Python o JS semplice
 GITHUB_REPO_URL = ""  # Esempio di un piccolo repo Python
-REPO_NAME = GITHUB_REPO_URL.split("/")[-1].replace(
-    ".git", ""
-)  # Estrae il nome del repo
+REPO_NAME = GITHUB_REPO_URL.split("/")[-1].replace(".git", "")
 
 # --- Configurazione Embeddings ---
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"

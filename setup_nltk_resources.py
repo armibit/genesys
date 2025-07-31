@@ -4,33 +4,24 @@ import os
 import urllib.request
 
 
-# Soluzione completa per problemi SSL (comune su macOS)
 def fix_ssl_context():
     """Fix SSL context per NLTK downloads"""
     try:
         _create_unverified_https_context = ssl._create_unverified_context
     except AttributeError:
-        # Legacy Python che non ha ssl._create_unverified_context
         pass
     else:
         ssl._create_default_https_context = _create_unverified_https_context
-
-    # Configurazione aggiuntiva per urllib
     ssl_context = ssl.create_default_context()
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
 
-    # Installa il nuovo contesto
     urllib.request.install_opener(
         urllib.request.build_opener(urllib.request.HTTPSHandler(context=ssl_context))
     )
 
 
-# Applica la fix SSL
 fix_ssl_context()
-
-# Imposta la directory di download (opzionale)
-# nltk.data.path.append('/path/to/your/nltk_data')
 
 resources = [
     "punkt",
